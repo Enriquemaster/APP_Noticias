@@ -1,2 +1,17 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+/* Variables para el tema claro */
+:root {
+    --ion-color-primary: #ffffff;
+    --ion-color-secondary: #f4f5f8;
+    --ion-background-color: #ffffff;
+    --ion-text-color: #000000;
+  }
+  
+  /* Variables para el tema oscuro */
+  body.dark {
+    --ion-color-primary: #000000;
+    --ion-color-secondary: #1c1c1e;
+    --ion-background-color: #000000;
+    --ion-text-color: #ffffff;
+  }
