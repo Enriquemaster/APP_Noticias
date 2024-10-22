@@ -4,7 +4,13 @@ import React, { useEffect, useState } from 'react';
 import Newspapper from '../assets/images/newspapper1.jpg';
 import TypingAnimation from '@/components/ui/typing-animation';
 import Animated from '@/components/ui/animated-shiny-text';
+import Rotate from '@/components/ui/word-rotate';
+import { RainbowButton } from '@/components/ui/rainbow-button';
+import { MagicCard } from '@/components/ui/magic-card';
+import BoxReveal from "@/components/ui/box-reveal";
+import FlickeringGrid from "@/components/ui/flickering-grid";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+import ShinyButton from "@/components/ui/shiny-button";
 import { cn } from "@/lib/utils";
 
 
@@ -75,38 +81,57 @@ const LocalNews: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div
-          style={{
-            backgroundImage: `url(${Newspapper})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            paddingTop: '20px',
-          }}
-        >
-          <div className="flex flex-wrap justify-around p-2 text-white">
-            {currentArticles.map((article, index) => (
-              <IonCard key={`${article.url}-${index}`} className="m-2 text-white" style={{ width: 'auto', height: 'auto' }}>
-                <IonCardContent className="p-6 bg-background rounded-lg shadow-md text-muted-foreground">
-                {isReady && (
-        <Animated className="">
-        {article.title}
-      </Animated>
-          )}
+
+
+      
+
+
+      {/* Contenedor principal con FlickeringGrid como fondo */}
+    <div className="relative h-screen w-full overflow-hidden">
+
+{/* FlickeringGrid como fondo */}
+<FlickeringGrid
+  className="z-0 absolute inset-0 h-full w-full"
+  squareSize={4}
+  gridGap={6}
+  color="#6B7280"
+  maxOpacity={0.5}
+  flickerChance={0.1}
+/>
 
 
 
+      <div className="flex justify-center items-center">
+  <Rotate
+    className="text-4xl font-bold text-black dark:text-white text-center titulo"
+    words={["Noticias", "Merida"]}/>
+</div>
+
+
+
+
+<div className="flex flex-wrap justify-around p-2 text-white">
+  {currentArticles.map((article, index) => (
+    <IonCard key={`${article.url}-${index}`} className="m-2 text-white" style={{ width: 'auto', height: 'auto' }}>
+      <IonCardContent className="p-6 bg-background rounded-lg shadow-md text-muted-foreground">
+        {isReady && (
+          <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+            <Animated className="">
+              {article.title}
+            </Animated>
+          </BoxReveal>
+        )}
+        
                   <div className="">
                     <div className="p-4rounded-lg">
+                    <BoxReveal boxColor={"#5046e6"} duration={0.5}>
                       <p className="text-lg text-muted-foreground">{article.description || "Aquí va el texto de la noticia"}</p>
+                      </BoxReveal>
                     </div>
+                    
                   </div>
                   {/* Botón Leer más */}
-                  <IonButton expand="full" color="primary" href={article.url} target="_blank" className="mt-4">
+                  <IonButton expand="full" href={article.url} target="_blank" className="mt-4 text-black">
                     Leer más
                   </IonButton>
                 </IonCardContent>
@@ -114,16 +139,19 @@ const LocalNews: React.FC = () => {
             ))}
           </div>
 
-          {/* Botones de Paginación */}
-          <div className="pagination-buttons mt-4">
-            <IonButton onClick={handlePreviousPage} disabled={currentPage === 1}>
-              Anterior
-            </IonButton>
-            <IonButton onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Siguiente
-            </IonButton>
-          </div>
-        </div>
+          
+
+          <div className="pagination-buttons mt-4 flex justify-center items-center">
+               <RainbowButton className='mx-2' onClick={handlePreviousPage} disabled={currentPage === 1}>
+                 Anterior
+                </RainbowButton>
+                <RainbowButton onClick={handleNextPage} disabled={currentPage === totalPages}>
+                 Siguiente
+                </RainbowButton>
+                </div>
+                </div>
+     
+
       </IonContent>
     </IonPage>
   );

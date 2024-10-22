@@ -26,6 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
+    "framer-motion": "^11.11.9",
     "ionicons": "^7.0.0",
     "lucide-react": "^0.453.0",
     "react": "^18.2.0",
