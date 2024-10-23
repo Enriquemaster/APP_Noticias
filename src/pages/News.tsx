@@ -32,17 +32,6 @@ const News: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-    
-           <IonCard className="max-w-md">
-              <IonCardContent>
-          {isReady && (
-            <TypingAnimation
-              className="titulo text-4xl font-bold text-white dark:text-white"
-              text="Noticias Relevantes"
-            />
-          )}
-          </IonCardContent>
-            </IonCard>
             <LocalNews />
       </IonContent>
     </IonPage>
