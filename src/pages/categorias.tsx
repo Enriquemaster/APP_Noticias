@@ -127,14 +127,14 @@ const Categorias: React.FC = () => {
         {/* Fondo dinámico */}
         <div className="relative z-10 h-1/2 w-full overflow-hidden">
           <FlickeringGrid
-            className="z-0 absolute inset-0  h-1/2 w-full"
+            className="z-0 absolute  w-full inset-0  h-1/2 w-full"
             squareSize={4}
             gridGap={6}
             color="#6B7280"
             maxOpacity={0.5}
             flickerChance={0.1}
             height={800}
-            width={800}
+            width={1000}
           />
           {/* Card informativo */}
           <div style={{ textAlign: 'center', marginTop: '40px' }}>

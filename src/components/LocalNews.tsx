@@ -27,7 +27,7 @@ const LocalNews: React.FC = () => {
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category') || 'Mérida'; // Cambia 'Mérida' si no se pasa ninguna categoría
 
-  const [isAnimationActive, setIsAnimationActive] = useState(false); // Nuevo estado para controlar la animación
+  const [isAnimationActive, setIsAnimationActive] = useState(false);
 
   const fetchLocalNews = async () => {
     try {
@@ -44,16 +44,14 @@ const LocalNews: React.FC = () => {
     fetchLocalNews();
   }, [category]);
 
-  // useEffect para activar la animación cuando el componente se monta
+  
   useEffect(() => {
-    // Activar animación al montar la página
     setIsAnimationActive(true);
 
-    // Limpiar la animación al desmontar la página
     return () => {
-      setIsAnimationActive(false); // Detener la animación cuando se sale de la página
+      setIsAnimationActive(false); 
     };
-  }, []); // El efecto se ejecuta solo al montar y desmontar
+  }, []); 
 
   if (loading) return <p>Cargando...</p>;
 
@@ -102,8 +100,9 @@ const LocalNews: React.FC = () => {
             {currentArticles.map((article, index) => (
               <IonCard key={`${article.url}-${index}`} className="m-2 text-white" style={{ width: 'auto', height: 'auto' }}>
                 <IonCardContent className="p-6 bg-background rounded-lg shadow-md text-muted-foreground">
-                  {/* BoxReveal solo se muestra si la animación está activa */}
+                <BoxReveal boxColor={"#5046e6"} duration={0.7}>
                         <h2 className="text-lg font-bold">{article.title}</h2>
+                </BoxReveal>
                         <p className="text-md">{article.description || "Aquí va el texto de la noticia"}</p>
                 </IonCardContent>
                 {article.urlToImage && (
