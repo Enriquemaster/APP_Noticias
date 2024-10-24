@@ -39,53 +39,55 @@ const Categorias: React.FC = () => {
     history.push(`/news?category=${category}`);
   };
 
+  const getIconColor = () => (darkMode ? 'white' : 'black');
+
   const Icons = {
     newsImage1: () => (
       <div
         style={{ textAlign: 'center', cursor: 'pointer' }}
-        onClick={() => handleCategorySelect('Technology')} // Cambiar a inglés
+        onClick={() => handleCategorySelect('Technology')}
       >
         <i
           className="bi bi-pc-display-horizontal"
-          style={{ fontSize: '50px', color: darkMode ? 'white' : 'black' }}
+          style={{ fontSize: '50px', color: getIconColor() }}
         ></i>
-        <p style={{ color: darkMode ? 'white' : 'black' }}>Tecnología</p>
+        <p style={{ color: getIconColor() }}>Tecnología</p>
       </div>
     ),
     newsImage2: () => (
       <div
         style={{ textAlign: 'center', cursor: 'pointer' }}
-        onClick={() => handleCategorySelect('Business')} // Cambiar a inglés
+        onClick={() => handleCategorySelect('Business')}
       >
         <i
           className="bi bi-cash-coin"
-          style={{ fontSize: '50px', color: darkMode ? 'white' : 'black' }}
+          style={{ fontSize: '50px', color: getIconColor() }}
         ></i>
-        <p style={{ color: darkMode ? 'white' : 'black' }}>Negocios</p>
+        <p style={{ color: getIconColor() }}>Negocios</p>
       </div>
     ),
     newsImage3: () => (
       <div
         style={{ textAlign: 'center', cursor: 'pointer' }}
-        onClick={() => handleCategorySelect('Health')} // Cambiar a inglés
+        onClick={() => handleCategorySelect('Health')}
       >
         <i
           className="bi bi-heart-pulse-fill"
-          style={{ fontSize: '50px', color: darkMode ? 'white' : 'black' }}
+          style={{ fontSize: '50px', color: getIconColor() }}
         ></i>
-        <p style={{ color: darkMode ? 'white' : 'black' }}>Salud</p>
+        <p style={{ color: getIconColor() }}>Salud</p>
       </div>
     ),
     newsImage4: () => (
       <div
         style={{ textAlign: 'center', cursor: 'pointer' }}
-        onClick={() => handleCategorySelect('Sports')} // Cambiar a inglés
+        onClick={() => handleCategorySelect('Sports')}
       >
         <i
           className="bi bi-dribbble"
-          style={{ fontSize: '50px', color: darkMode ? 'white' : 'black' }}
+          style={{ fontSize: '50px', color: getIconColor() }}
         ></i>
-        <p style={{ color: darkMode ? 'white' : 'black' }}>Deportes</p>
+        <p style={{ color: getIconColor() }}>Deportes</p>
       </div>
     ),
   };
@@ -94,7 +96,7 @@ const Categorias: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Categorías</IonTitle>
+          <IonTitle className='text-black'>Categorías</IonTitle>
         </IonToolbar>
       </IonHeader>
 

@@ -1,8 +1,9 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToggle, IonLabel, IonButton, IonCard, IonCardContent } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToggle, IonLabel, IonButton, IonCard, IonCardContent, IonButtons } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
 import Globe from '@/components/ui/globe';
 import { useHistory } from 'react-router-dom'; 
 import News from '../components/LocalNews';
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import './Home.css';
 import '../theme/variables.css';
 
@@ -10,6 +11,10 @@ const Home: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const history = useHistory(); 
+
+  const handleStart1 = () => {
+    history.push('/sobre');
+  };
 
   // Recuperar el estado del tema al cargar el componente
   useEffect(() => {
@@ -37,21 +42,23 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>
-            <IonLabel>Modo oscuro</IonLabel>
+      <IonHeader style={{ backgroundColor: darkMode ? '#1F1F1F' : '#F0F0F0' }}> {/* Cambia el color del IonHeader */}
+        <IonToolbar style={{ backgroundColor: darkMode ? '#000000' : '#FFFFFF' }}>
+          <IonTitle className=''>Bienvenido</IonTitle> {/* Cambia el color del IonTitle */}
+          <IonButtons slot="end">
+            <IonButton onClick={handleStart1}>Sobre...</IonButton>
+            <IonLabel>🌓</IonLabel>
             <IonToggle checked={darkMode} onIonChange={handleThemeToggle} />
-          </IonTitle>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         {isReady && (
-          <div className="relative flex h-[1100px] w-full flex-col items-center justify-center overflow-hidden rounded-lg md:shadow-xl">
+          <div className="relative flex h-[1200px] w-full flex-col items-center justify-center overflow-hidden rounded-lg md:shadow-xl">
             <span className="pointer-events-none p-4 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
               Noticias
             </span>
-            <IonCard className="max-w-11/12 h-2/5 px-8">
+            <IonCard className="max-w-full h-full px-8">
               <IonCardContent>
                 <p className="text-center text-lg mb-4 px-4 text-justify">
                   Bienvenido. Aquí encontrarás las últimas novedades de todo el mundo, desde política hasta deportes, entretenimiento y más. ¡Mantente informado y descubre lo que está sucediendo!
@@ -59,13 +66,13 @@ const Home: React.FC = () => {
               </IonCardContent>
             </IonCard>
 
-            <div className="relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg border bg-background px-40 pb-40 pt-8 md:pb-60 md:shadow-xl">
+            <div className="relative flex size-full h-[2000px] items-center justify-center overflow-hidden rounded-lg border bg-background px-2 pb-2 md:pb-2 md:shadow-xl">
               <Globe className="top-2" />
-              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_40%_100%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
             </div>
-            <IonButton onClick={navigateToNews} className="mt-4">
+            <RainbowButton onClick={navigateToNews} className="mt-4">
               Ver Noticias
-            </IonButton>
+            </RainbowButton>
 
             <div className="flex justify-center space-x-4 mt-4">
               <IonCard className="max-w-md w-2/5 h-full">

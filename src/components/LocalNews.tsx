@@ -1,4 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonCard, IonCardContent } from '@ionic/react';
+
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonCard, IonCardContent, IonImg } from '@ionic/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import FlickeringGrid from "@/components/ui/flickering-grid";
@@ -9,7 +10,7 @@ const LocalNews: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); 
   const articlesPerPage = 2; 
-  const apiKey = '9cf52eb37f554d9bbd4651be306478ce'; 
+  const apiKey = 'ce86fb8c42d3465aa59fe58ac1cf46ec'; 
   const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -17,7 +18,7 @@ const LocalNews: React.FC = () => {
 
   const fetchLocalNews = async () => {
     try {
-      const response = await axios.get(`https://newsapi.org/v2/everything?q=${category}&apiKey=${apiKey}`);
+      const response = await axios.get(`https://newsapi.org/v2/everything?q=${category}&language=es&apiKey=${apiKey}`);
       setArticles(response.data.articles);
     } catch (error) {
       console.error("Error fetching local news:", error);
@@ -55,7 +56,7 @@ const LocalNews: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle className="text-center text-xl font-bold">Noticias Locales</IonTitle>
+          <IonTitle className="text-center text-xl font-bold text-black">Noticias </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -76,6 +77,14 @@ const LocalNews: React.FC = () => {
                 <IonCardContent className="p-6 bg-background rounded-lg shadow-md text-muted-foreground">
                   <h2 className="text-lg font-bold">{article.title}</h2>
                   <p className="text-md">{article.description || "Aquí va el texto de la noticia"}</p>
+                </IonCardContent>
+
+                {/* Mostrar imagen si está disponible */}
+                {article.urlToImage && (
+                  <IonImg src={article.urlToImage} alt={article.title} className="w-full h-48 object-cover rounded-lg" />
+                )}
+
+                <IonCardContent className="bg-background">
                   <IonButton expand="full" href={article.url} target="_blank" className="mt-4 text-black">
                     Leer más
                   </IonButton>

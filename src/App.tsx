@@ -4,6 +4,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import News from './pages/News';
 import Categorias from './pages/categorias';
+import Sobre from './pages/sobre';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -56,7 +57,9 @@ const App: React.FC = () => (
           <Categorias />
         </Route>
 
-
+        <Route exact path="/sobre">
+          <Sobre />
+        </Route>
 
 
         <Route exact path="/">

@@ -1,7 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToggle, IonLabel, IonCard, IonCardContent } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
-import TypingAnimation from '@/components/ui/typing-animation';
-import Newspapper from '../assets/images/newspapper1.jpg'; 
 import LocalNews from '../components/LocalNews';
 import './Home.css';
 
@@ -10,29 +8,27 @@ const News: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    document.body.classList.toggle('dark', darkMode);
-  }, [darkMode]);
-
-  useEffect(() => {
-    setIsReady(true);
+    // Recuperar el estado del tema desde localStorage al cargar el componente
+    const storedDarkMode = localStorage.getItem('darkMode');
+    if (storedDarkMode) {
+      setDarkMode(JSON.parse(storedDarkMode));
+    }
+    setIsReady(true); // Marca que la página está lista para renderizar el contenido
   }, []);
 
-  const handleThemeToggle = (e: CustomEvent) => {
-    setDarkMode(e.detail.checked);
-  };
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode);
+  }, [darkMode]);
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>
-            <IonLabel>Modo oscuro</IonLabel>
-            <IonToggle checked={darkMode} onIonChange={handleThemeToggle} />
-          </IonTitle>
+          {/* Agrega aquí el título o cualquier otro contenido que desees */}
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-            <LocalNews />
+        {isReady && <LocalNews />}
       </IonContent>
     </IonPage>
   );
