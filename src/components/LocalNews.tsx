@@ -1,9 +1,21 @@
-
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonCard, IonCardContent, IonImg } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonImg
+} from '@ionic/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import FlickeringGrid from "@/components/ui/flickering-grid";
+import Shiny from "@/components/ui/shiny-button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import { useLocation } from 'react-router-dom';
+import BoxReveal from "@/components/ui/box-reveal";
 
 const LocalNews: React.FC = () => {
   const [articles, setArticles] = useState<any[]>([]);
@@ -11,10 +23,11 @@ const LocalNews: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1); 
   const articlesPerPage = 2; 
   const apiKey = 'ce86fb8c42d3465aa59fe58ac1cf46ec'; 
-  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const category = queryParams.get('category') || 'Mérida'; // Cambia 'Mérida' si no se pasa ninguna categoría
+
+  const [isAnimationActive, setIsAnimationActive] = useState(false); // Nuevo estado para controlar la animación
 
   const fetchLocalNews = async () => {
     try {
@@ -29,7 +42,18 @@ const LocalNews: React.FC = () => {
 
   useEffect(() => {
     fetchLocalNews();
-  }, [category]); // Cambia la dependencia para que se llame cada vez que la categoría cambie
+  }, [category]);
+
+  // useEffect para activar la animación cuando el componente se monta
+  useEffect(() => {
+    // Activar animación al montar la página
+    setIsAnimationActive(true);
+
+    // Limpiar la animación al desmontar la página
+    return () => {
+      setIsAnimationActive(false); // Detener la animación cuando se sale de la página
+    };
+  }, []); // El efecto se ejecuta solo al montar y desmontar
 
   if (loading) return <p>Cargando...</p>;
 
@@ -56,36 +80,38 @@ const LocalNews: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle className="text-center text-xl font-bold text-black">Noticias </IonTitle>
+          <IonTitle className="text-center text-xl font-bold text-black">Noticias</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div className="relative z-10 h-screen w-full overflow-hidden h-full w-full">
+
+      <div className="min-h-screen w-full">
           <FlickeringGrid
-              className="z-0 absolute inset-0 size-full h-full w-full"
-              squareSize={4}
-              gridGap={6}
-              color="#6B7280"
-              maxOpacity={0.5}
-              flickerChance={0.1}
-              height={1000}
-              width={1000}
-            />
+            className="z-0 absolute inset-0 size-full h-full w-full"
+            squareSize={4}
+            gridGap={6}
+            color="#6B7280"
+            maxOpacity={0.5}
+            flickerChance={0.1}
+            height={1150}
+            width={1150}
+          />
+       
+
           <div className="flex flex-wrap justify-around p-2 text-white">
             {currentArticles.map((article, index) => (
               <IonCard key={`${article.url}-${index}`} className="m-2 text-white" style={{ width: 'auto', height: 'auto' }}>
                 <IonCardContent className="p-6 bg-background rounded-lg shadow-md text-muted-foreground">
-                  <h2 className="text-lg font-bold">{article.title}</h2>
-                  <p className="text-md">{article.description || "Aquí va el texto de la noticia"}</p>
+                  {/* BoxReveal solo se muestra si la animación está activa */}
+                        <h2 className="text-lg font-bold">{article.title}</h2>
+                        <p className="text-md">{article.description || "Aquí va el texto de la noticia"}</p>
                 </IonCardContent>
-
-                {/* Mostrar imagen si está disponible */}
                 {article.urlToImage && (
                   <IonImg src={article.urlToImage} alt={article.title} className="w-full h-48 object-cover rounded-lg" />
                 )}
 
-                <IonCardContent className="bg-background">
-                  <IonButton expand="full" href={article.url} target="_blank" className="mt-4 text-black">
+                <IonCardContent className="bg-blue flex justify-center items-center">
+                  <IonButton expand="full" href={article.url} className="mt-4 bg-yellow-500 text-white">
                     Leer más
                   </IonButton>
                 </IonCardContent>
@@ -93,15 +119,15 @@ const LocalNews: React.FC = () => {
             ))}
           </div>
 
-          <div className="pagination-buttons mt-4 flex justify-center items-center">
-               <IonButton onClick={handlePreviousPage} disabled={currentPage === 1}>
-                 Anterior
-               </IonButton>
-               <IonButton onClick={handleNextPage} disabled={currentPage === totalPages}>
-                 Siguiente
-               </IonButton>
+          <div className="pagination-buttons mt-4 mx-8 flex justify-center items-center">
+            <RainbowButton className="mx-4" onClick={handlePreviousPage} disabled={currentPage === 1}>
+              Anterior
+            </RainbowButton>
+            <RainbowButton onClick={handleNextPage} disabled={currentPage === totalPages}>
+              Siguiente
+            </RainbowButton>
           </div>
-        </div>
+          </div>
       </IonContent>
     </IonPage>
   );

@@ -1,15 +1,16 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonToggle, IonLabel, IonButton, IonCard, IonCardContent, IonButtons } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
-import Globe from '@/components/ui/globe';
 import { useHistory } from 'react-router-dom'; 
 import News from '../components/LocalNews';
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import './Home.css';
 import '../theme/variables.css';
+import  Globe  from '../assets/videos/globe.mp4';
 
 const Home: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [showGlobe, setShowGlobe] = useState(true); // Estado para controlar la visibilidad del Globe
   const history = useHistory(); 
 
   const handleStart1 = () => {
@@ -23,6 +24,14 @@ const Home: React.FC = () => {
       setDarkMode(JSON.parse(storedDarkMode));
     }
     setIsReady(true); // Marca que la página está lista para renderizar el contenido
+
+    // Mostrar el Globe cuando el componente se monta
+    setShowGlobe(true);
+
+    return () => {
+      // Desmontar el Globe cuando se sale de la página
+      setShowGlobe(false);
+    };
   }, []);
 
   // Aplicar el tema oscuro cuando darkMode cambia
@@ -54,40 +63,56 @@ const Home: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         {isReady && (
-          <div className="relative flex h-[1200px] w-full flex-col items-center justify-center overflow-hidden rounded-lg md:shadow-xl">
-            <span className="pointer-events-none p-4 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+          <div className="relative flex h-full w-full flex-col overflow-hidden rounded-lg md:shadow-xl">
+           
+            <span className="pointer-events-none mt-12 whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-6xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
               Noticias
             </span>
-            <IonCard className="max-w-full h-full px-8">
+            <div className="">
+            <IonCard className="max-w-full h-full px-2">
               <IonCardContent>
-                <p className="text-center text-lg mb-4 px-4 text-justify">
+                <p className="text-center text-lg  text-justify">
                   Bienvenido. Aquí encontrarás las últimas novedades de todo el mundo, desde política hasta deportes, entretenimiento y más. ¡Mantente informado y descubre lo que está sucediendo!
                 </p>
               </IonCardContent>
             </IonCard>
+            </div>
 
-            <div className="relative flex size-full h-[2000px] items-center justify-center overflow-hidden rounded-lg border bg-background px-2 pb-2 md:pb-2 md:shadow-xl">
-              <Globe className="top-2" />
-              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_40%_100%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+            <div className="relative flex items-center justify-center overflow-hidden rounded-lg border bg-background px-2 pb-72 md:pb-2 md:shadow-xl">
+             
+            <video 
+        className="absolute inset-0 w-full h-full object-cover" // Ajusta el video para cubrir el contenedor
+        autoPlay 
+        loop 
+        muted // Si deseas que el video se reproduzca sin sonido
+      >
+        <source src={Globe} type="video/mp4" />
+        Tu navegador no soporta el elemento de video.
+      </video>
+      {/* Aquí puedes agregar otros elementos dentro del div si lo necesitas */}
+      <div className="relative z-10"> {/* Asegúrate de que otros contenidos estén por encima del video */}
+        {/* Contenido que deseas mostrar sobre el video */}
+      </div>
+
             </div>
             <RainbowButton onClick={navigateToNews} className="mt-4">
               Ver Noticias
             </RainbowButton>
 
-            <div className="flex justify-center space-x-4 mt-4">
-              <IonCard className="max-w-md w-2/5 h-full">
+            <div className="flex justify-center">
+              <IonCard className="  ">
                 <IonCardContent>
                   <h1>Descubre y explora</h1>
-                  <p className="text-center text-md text-justify">
+                  <p className="text-center text-sm text-justify">
                     Al hacer clic en "Ver Noticias", podrás explorar una amplia variedad de artículos que abarcan las últimas tendencias y eventos importantes.
                   </p>
                 </IonCardContent>
               </IonCard>
 
-              <IonCard className="max-w-md w-2/5 h-full">
+              <IonCard className="max-w-md">
                 <IonCardContent>
                   <h1>Mantente informado</h1>
-                  <p className="text-center text-md text-justify">
+                  <p className="text-center text-sm text-justify">
                     No te pierdas las actualizaciones en tiempo real y la cobertura de las noticias más impactantes. ¡Esté siempre al tanto de lo que está sucediendo en el mundo!
                   </p>
                 </IonCardContent>

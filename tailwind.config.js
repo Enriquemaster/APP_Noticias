@@ -62,7 +62,8 @@ export default {
   			orbit: 'orbit calc(var(--duration)*1s) linear infinite',
   			'shiny-text': 'shiny-text 8s infinite',
   			rainbow: 'rainbow var(--speed, 2s) infinite linear',
-  			'background-position-spin': 'background-position-spin 3000ms infinite alternate'
+  			'background-position-spin': 'background-position-spin 3000ms infinite alternate',
+  			grid: 'grid 15s linear infinite'
   		},
   		keyframes: {
   			orbit: {
@@ -95,6 +96,14 @@ export default {
   				},
   				'100%': {
   					backgroundPosition: 'bottom center'
+  				}
+  			},
+  			grid: {
+  				'0%': {
+  					transform: 'translateY(-50%)'
+  				},
+  				'100%': {
+  					transform: 'translateY(0)'
   				}
   			}
   		}

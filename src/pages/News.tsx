@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
 import LocalNews from '../components/LocalNews';
 import './Home.css';
@@ -24,7 +24,9 @@ const News: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          {/* Agrega aquí el título o cualquier otro contenido que desees */}
+        <IonTitle className='flex justify-center items-center'>
+          Noticias
+        </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

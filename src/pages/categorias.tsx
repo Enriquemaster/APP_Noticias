@@ -19,7 +19,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const Categorias: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
   const history = useHistory();
-  const [selectedCategory, setSelectedCategory] = useState('Tecnología');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Recuperar el estado del tema al cargar el componente
   useEffect(() => {
@@ -107,32 +107,34 @@ const Categorias: React.FC = () => {
             Noticias
           </span>
 
-          {/* Íconos animados */}
-          <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={20} radius={80}>
-            <Icons.newsImage1 />
-          </OrbitingCircles>
-          <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={10} radius={80}>
-            <Icons.newsImage2 />
-          </OrbitingCircles>
-          <OrbitingCircles className="size-[50px] border-none bg-transparent" radius={190} duration={20} reverse>
-            <Icons.newsImage3 />
-          </OrbitingCircles>
-          <OrbitingCircles className="size-[50px] border-none bg-transparent" radius={190} duration={20} delay={20} reverse>
-            <Icons.newsImage4 />
-          </OrbitingCircles>
+          {/* Renderizar las animaciones inmediatamente */}
+          <>
+            <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={20} radius={80}>
+              <Icons.newsImage1 />
+            </OrbitingCircles>
+            <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={10} radius={80}>
+              <Icons.newsImage2 />
+            </OrbitingCircles>
+            <OrbitingCircles className="size-[50px] border-none bg-transparent" radius={190} duration={20} reverse>
+              <Icons.newsImage3 />
+            </OrbitingCircles>
+            <OrbitingCircles className="size-[50px] border-none bg-transparent" radius={190} duration={20} delay={20} reverse>
+              <Icons.newsImage4 />
+            </OrbitingCircles>
+          </>
         </div>
 
         {/* Fondo dinámico */}
-        <div className="relative z-10 h-full w-full overflow-hidden">
+        <div className="relative z-10 h-1/2 w-full overflow-hidden">
           <FlickeringGrid
-            className="z-0 absolute inset-0 size-full h-full w-full"
+            className="z-0 absolute inset-0  h-1/2 w-full"
             squareSize={4}
             gridGap={6}
             color="#6B7280"
             maxOpacity={0.5}
             flickerChance={0.1}
-            height={1000}
-            width={1000}
+            height={800}
+            width={800}
           />
           {/* Card informativo */}
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
@@ -143,7 +145,7 @@ const Categorias: React.FC = () => {
                 </IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
-                Mantente informado con las últimas novedades sobre {selectedCategory}. Haz clic en el apartado de la noticia que deseas consultar para obtener más información.
+                Mantente informado con las últimas novedades sobre {selectedCategory || 'tu categoría favorita'}. Haz clic en la categoría que deseas consultar para obtener noticias relevantes del momento.
               </IonCardContent>
             </IonCard>
           </div>

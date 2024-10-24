@@ -40,6 +40,8 @@ export default function OrbitingCircles({
       <div
         style={
           {
+            transform: "translate3d(0, 0, 0)",
+            willChange: "transform",
             "--duration": duration,
             "--radius": radius,
             "--delay": -delay,
